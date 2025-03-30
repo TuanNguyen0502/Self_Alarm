@@ -1,5 +1,6 @@
 package hcmute.edu.vn.selfalarm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import hcmute.edu.vn.selfalarm.musicPlayer.MusicPlayer;
 
 public class MainActivity extends AppCompatActivity {
     private Button button_music;
@@ -26,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         button_music = findViewById(R.id.button_music);
         button_music.setOnClickListener(v -> {
-            Toast.makeText(this, "Button Clicked!!!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, MusicPlayer.class);
+            startActivity(intent);
         });
     }
 }
