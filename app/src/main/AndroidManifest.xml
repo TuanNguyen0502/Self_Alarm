@@ -45,6 +45,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.HEADSET_PLUG" />
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
         <receiver
