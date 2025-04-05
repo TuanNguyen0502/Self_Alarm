@@ -10,4 +10,9 @@
     <color name="colorPrimary">#1b1a1c</color>
     <color name="colorPrimaryDark">#151515</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="light_gray">#EEEEEE</color>
+    <color name="darker_gray">#757575</color>
+    <color name="tab_background">#3FB55C</color>
+    <color name="red">#f44336</color>
+    <color name="green">#4caf50</color>
 </resources>

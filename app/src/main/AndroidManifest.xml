@@ -9,7 +9,27 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
 
     <application
         android:name=".musicPlayer.ApplicationClass"
@@ -42,7 +62,42 @@
                 <action android:name="action_cancel" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".smsCall.SMSReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".smsCall.CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+        <!-- SMS Status Receiver -->
+        <receiver
+            android:name=".smsCall.SMSStatusReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="SMS_SENT" />
+                <action android:name="SMS_DELIVERED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".manageTask.TaskReminderReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
+        <service
+            android:name=".smsCall.BlacklistService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
         <service
             android:name=".musicPlayer.MusicService"
             android:enabled="true"
@@ -65,6 +120,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".smsCall.SmsCallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".smsCall.SmsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".smsCall.SendSMSActivity"
+            android:exported="false" />
+        <activity
+            android:name=".smsCall.CallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".manageTask.ManageTaskActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
