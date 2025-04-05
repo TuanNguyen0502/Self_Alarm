@@ -3,7 +3,6 @@ package hcmute.edu.vn.selfalarm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,12 +10,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import hcmute.edu.vn.selfalarm.manageTask.ManageTaskActivity;
 import hcmute.edu.vn.selfalarm.musicPlayer.MusicPlayer;
 import hcmute.edu.vn.selfalarm.smsCall.SmsCallActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button_music;
-    private Button button_smsCall;
+    private Button button_music, button_smsCall, button_tasks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +39,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        button_tasks = findViewById(R.id.button_task);
+        button_tasks.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ManageTaskActivity.class);
+            startActivity(intent);
+        });
     }
 }
