@@ -12,10 +12,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import hcmute.edu.vn.selfalarm.musicPlayer.MusicPlayer;
+import hcmute.edu.vn.selfalarm.smsCall.SmsCallActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button button_music;
-
+    private Button button_smsCall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,5 +33,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, MusicPlayer.class);
             startActivity(intent);
         });
+
+        button_smsCall = findViewById(R.id.button_sms);
+        button_smsCall.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SmsCallActivity.class);
+            startActivity(intent);
+        });
+
     }
 }
