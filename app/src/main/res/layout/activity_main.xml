@@ -71,7 +71,7 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:id="@+id/button_manageSMSCall"
+            android:id="@+id/button_sms_call"
             android:background="@drawable/sms_call"
             android:layout_marginBottom="20dp"
             android:layout_centerInParent="true"

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        button_smsCall = findViewById(R.id.button_sms);
+        button_smsCall = findViewById(R.id.button_sms_call);
         button_smsCall.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SmsCallActivity.class);
             startActivity(intent);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnClose = dialog.findViewById(R.id.btnClose);
         Button btnOk = dialog.findViewById(R.id.btnOk);
 
-        if (level <= 90){
+        if (level <= 20){
             txtContent.setText("Pin của bạn đã giảm xuống dưới 20%. Bạn có muốn tiết kiệm pin?");
         }
 

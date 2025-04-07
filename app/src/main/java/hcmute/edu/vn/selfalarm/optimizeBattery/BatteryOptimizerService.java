@@ -49,7 +49,7 @@ public class BatteryOptimizerService extends Service {
 //  Lấy mức pin hiện taại và trạng thái từ Intent
 //                Xử lí nếu mức pin bị thay đổi/ trạng thái sạc bị thay đổ
                 if (level != lastBatteryLevel || isCharging != lastChargingState) {
-                    if(level <= 90){
+                    if(level <= 20){
                         Intent intent1 = new Intent("show_dialog");
                         intent1.putExtra("level", level);       // ví dụ: 20
                         intent1.putExtra("charging", isCharging);      // ví dụ: true hoặc false
@@ -99,7 +99,7 @@ public class BatteryOptimizerService extends Service {
 //    Nếu phần trăm pin <= 20% và đang không sạc ->
 //    giảm độ sáng và tắt đồng bộ tự động
     public void adjustSettings(int level, boolean isCharging) {
-        if (level <= 90 && !isCharging) {
+        if (level <= 20 && !isCharging) {
             int brightness = getScreenBrightness();
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness/2);
             // Disable auto-sync
