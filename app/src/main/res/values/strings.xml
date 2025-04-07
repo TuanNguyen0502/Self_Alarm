@@ -2,6 +2,6 @@
     <string name="app_name">Self Alarm</string>
     <string name="group_members">Do Thi Hoang Duyen - 22110121\nNguyen Ha Hong Tuan - 22110260\nLe Duc Minh Vuong - 22110271</string>
     <string name="music_function">Listen to music</string>
-    <string name="task_function">Manage Task</string>
-    <string name="sms_function">Manage SMS Call</string>
+    <string name="task_function">Manage task</string>
+    <string name="smsCall_function">Manage SMS and Call</string>
 </resources>
