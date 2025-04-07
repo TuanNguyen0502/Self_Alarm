@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView_title"
             android:text="Title"
-            android:textSize="28sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:paddingStart="4dp"
             android:paddingTop="4dp"
@@ -31,7 +31,7 @@
             android:id="@+id/textView_description"
             android:layout_below="@+id/textView_title"
             android:text="Description"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:paddingStart="4dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"/>
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView_date"
             android:text="Date"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="italic"
             android:layout_below="@id/textView_description"
             android:paddingStart="4dp"
@@ -56,7 +56,7 @@
             android:buttonTint="@color/black"
             android:paddingStart="4dp"
             android:text="Check if done"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp" />
 

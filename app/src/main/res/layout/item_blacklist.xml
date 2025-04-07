@@ -23,11 +23,10 @@
 
         <ImageButton
             android:id="@+id/removeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/delete"
             android:contentDescription="Remove from blacklist"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="?attr/colorError"/>
 
     </LinearLayout>

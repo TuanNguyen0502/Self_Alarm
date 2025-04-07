@@ -1,58 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/editText_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your task's title here"
-        android:textSize="20sp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText_description"
-        android:hint="Enter your task's description here"
-        android:inputType="textMultiLine"
-        android:textSize="20sp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:layout_below="@+id/editText_title"
-        android:layout_marginTop="12dp"/>
+        <!-- Task's title -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_description"
-        android:layout_marginTop="12dp"
-        android:datePickerMode="spinner"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Input_title"
+                android:hint="Task's Title"
+                android:textColorHint="@android:color/black"
+                app:hintTextAppearance="@style/HintTextStyle"
+                >
 
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/datePicker"
-        android:layout_marginTop="12dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:timePickerMode="spinner" />
+                <EditText
+                    android:id="@+id/editText_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="Enter your task's title here" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_save"
-        android:layout_below="@+id/timePicker"
-        android:text="Save"
-        android:textSize="20sp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"/>
+        <!-- Task's description -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
-</RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                 />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Task's Description"
+                android:textColorHint="@android:color/black"
+                app:hintTextAppearance="@style/HintTextStyle">
+
+                <EditText
+                    android:id="@+id/editText_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:gravity="top"
+                    android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="Enter your task's description here"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <!-- Date Picker -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose task's date start"
+            android:textSize="18sp">
+        </TextView>
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <!-- Time Picker -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose task's time start"
+            android:textSize="18sp"></TextView>
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="end"
+            android:text="Save"
+            android:textSize="18sp"
+            android:layout_marginEnd="12dp"/>
+    </LinearLayout>
+</ScrollView>
