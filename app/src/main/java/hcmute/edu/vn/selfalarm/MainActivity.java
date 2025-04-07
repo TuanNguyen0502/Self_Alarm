@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,7 +27,7 @@ import hcmute.edu.vn.selfalarm.musicPlayer.MusicPlayer;
 import hcmute.edu.vn.selfalarm.optimizeBattery.BatteryOptimizerService;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button_music;
+    private ImageButton button_music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

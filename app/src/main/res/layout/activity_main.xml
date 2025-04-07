@@ -8,55 +8,87 @@
     tools:context=".MainActivity"
     android:background="#03a9f4"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_music"
-        android:text="@string/music_function"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:padding="16dp"
-        android:layout_marginBottom="20dp"
-        app:icon="@drawable/ic_music_note"
-        app:iconTint="@color/black"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconSize="24dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_task"
-        android:text="@string/music_function"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:padding="16dp"
-        android:layout_marginBottom="20dp"
-        app:icon="@drawable/ic_music_note"
-        app:iconTint="@color/black"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconSize="24dp" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:id="@+id/button_music"
+            android:background="@drawable/music"
+            android:layout_marginBottom="20dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="Phát nhạc"
+            />
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_sms"
-        android:text="@string/music_function"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
-        android:textSize="32sp"
-        android:padding="16dp"
-        android:layout_marginBottom="20dp"
-        app:icon="@drawable/ic_music_note"
-        app:iconTint="@color/black"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconSize="24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/music_function"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="185dp"
+            />
+    </FrameLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:id="@+id/button_task"
+            android:background="@drawable/task"
+            android:layout_marginBottom="20dp"
+            android:layout_centerInParent="true"
+            android:paddingBottom="20dp"
+            android:contentDescription="Quản lí tasks"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/task_function"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="195dp"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:id="@+id/button_manageSMSCall"
+            android:background="@drawable/sms_call"
+            android:layout_marginBottom="20dp"
+            android:layout_centerInParent="true"
+            android:paddingBottom="20dp"
+            android:contentDescription="Quản lí cuộc gọi và tin nhắn"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/smsCall_function"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="195dp"
+            />
+    </FrameLayout>
 
 </LinearLayout>
