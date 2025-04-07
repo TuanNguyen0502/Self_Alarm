@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+<!--    <uses-permission android:name="android.permission.BIND_SCREENING_SERVICE"></uses-permission>-->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -65,7 +66,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".smsCall.SMSReceiver"
+            android:name=".smsCall.SMS.SMSReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BROADCAST_SMS">
@@ -74,7 +75,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".smsCall.CallReceiver"
+            android:name=".smsCall.Call.CallReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
@@ -82,7 +83,7 @@
         </receiver>
         <!-- SMS Status Receiver -->
         <receiver
-            android:name=".smsCall.SMSStatusReceiver"
+            android:name=".smsCall.SMS.SMSStatusReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -96,7 +97,17 @@
             android:exported="true" />
 
         <service
-            android:name=".smsCall.BlacklistService"
+            android:name=".smsCall.Call.Blacklist.ScreeningService"
+            android:exported="true"
+            android:permission="android.permission.BIND_SCREENING_SERVICE">
+            <intent-filter>
+                <action android:name="android.telecom.CallScreeningService" />
+            </intent-filter>
+        </service>
+
+
+        <service
+            android:name=".smsCall.Call.Blacklist.BlacklistService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse" />
@@ -126,16 +137,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".smsCall.SmsCallActivity"
+            android:name=".smsCall.SMS.SmsCallActivity"
             android:exported="false" />
         <activity
-            android:name=".smsCall.SmsActivity"
+            android:name=".smsCall.SMS.SmsActivity"
             android:exported="false" />
         <activity
-            android:name=".smsCall.SendSMSActivity"
+            android:name=".smsCall.SMS.SendSMSActivity"
             android:exported="false" />
         <activity
-            android:name=".smsCall.CallActivity"
+            android:name=".smsCall.Call.CallActivity"
             android:exported="false" />
         <activity
             android:name=".manageTask.ManageTaskActivity"

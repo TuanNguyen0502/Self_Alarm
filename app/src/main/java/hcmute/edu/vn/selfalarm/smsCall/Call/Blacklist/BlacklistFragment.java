@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.Call.Blacklist;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.edu.vn.selfalarm.R;
+import hcmute.edu.vn.selfalarm.smsCall.Call.Blacklist.BlacklistService;
 
 public class BlacklistFragment extends Fragment {
     private RecyclerView blacklistRecyclerView;
@@ -49,11 +50,7 @@ public class BlacklistFragment extends Fragment {
             FloatingActionButton fabAddBlacklist = view.findViewById(R.id.fab_add_blacklist);
             if (fabAddBlacklist != null) {
                 fabAddBlacklist.setOnClickListener(v -> {
-                    if (checkPermissions()) {
-                        showAddBlacklistDialog();
-                    } else {
-                        requestPermissions();
-                    }
+                    showAddBlacklistDialog();
                 });
             }
 
@@ -66,24 +63,6 @@ public class BlacklistFragment extends Fragment {
             Toast.makeText(getContext(), "Error initializing blacklist: " + e.getMessage(), Toast.LENGTH_LONG).show();
             return null;
         }
-    }
-
-    private boolean checkPermissions() {
-        if (getContext() == null) return false;
-        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_SMS)
-                == PackageManager.PERMISSION_GRANTED &&
-               ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_STATE)
-                == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermissions() {
-        if (getActivity() == null) return;
-        ActivityCompat.requestPermissions(requireActivity(),
-                new String[]{
-                    Manifest.permission.READ_SMS,
-                    Manifest.permission.READ_PHONE_STATE
-                },
-                SMS_PERMISSION_REQUEST_CODE);
     }
 
     private void showAddBlacklistDialog() {
@@ -159,25 +138,6 @@ public class BlacklistFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error loading blacklist: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == SMS_PERMISSION_REQUEST_CODE) {
-            boolean allGranted = true;
-            for (int result : grantResults) {
-                if (result != PackageManager.PERMISSION_GRANTED) {
-                    allGranted = false;
-                    break;
-                }
-            }
-            if (allGranted) {
-                showAddBlacklistDialog();
-            } else {
-                Toast.makeText(getContext(), "Permissions required to manage blacklist", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 } 

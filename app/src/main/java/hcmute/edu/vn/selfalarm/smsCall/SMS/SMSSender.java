@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.SMS;
 
 import android.app.PendingIntent;
 import android.content.Context;

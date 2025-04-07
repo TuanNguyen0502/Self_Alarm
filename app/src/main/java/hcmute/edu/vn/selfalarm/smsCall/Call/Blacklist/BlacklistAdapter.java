@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.Call.Blacklist;
 
 import android.view.LayoutInflater;
 import android.view.View;

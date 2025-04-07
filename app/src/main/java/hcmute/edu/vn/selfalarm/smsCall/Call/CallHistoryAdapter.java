@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.Call;
 
 import android.content.Context;
 import android.view.LayoutInflater;

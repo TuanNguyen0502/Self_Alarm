@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:contentDescription="Danh sách blacklist"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_blacklist"

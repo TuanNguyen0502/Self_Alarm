@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.SMS;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

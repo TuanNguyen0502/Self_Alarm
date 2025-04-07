@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.Call;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import hcmute.edu.vn.selfalarm.smsCall.Call.Blacklist.BlacklistService;
 
 public class CallReceiver extends BroadcastReceiver {
     private static final String TAG = "CallReceiver";
@@ -46,7 +48,6 @@ public class CallReceiver extends BroadcastReceiver {
     private void handleIncomingCall(Context context, String phoneNumber) {
         if (BlacklistService.isBlacklisted(phoneNumber)) {
             // Reject the call
-            BlacklistService.rejectCall(context);
             showBlockedNotification(context, phoneNumber);
         } else {
             // Forward to CallActivity

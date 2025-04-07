@@ -1,6 +1,7 @@
 package hcmute.edu.vn.selfalarm;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.telecom.TelecomManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +26,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.jetbrains.annotations.Nullable;
+
 import hcmute.edu.vn.selfalarm.manageTask.ManageTaskActivity;
 import hcmute.edu.vn.selfalarm.musicPlayer.MusicPlayer;
-import hcmute.edu.vn.selfalarm.smsCall.SmsCallActivity;
+import hcmute.edu.vn.selfalarm.smsCall.SMS.SmsCallActivity;
 import hcmute.edu.vn.selfalarm.optimizeBattery.BatteryOptimizerService;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton button_music, button_smsCall, button_tasks;
+
+    private static final int REQUEST_CODE_SET_DEFAULT_DIALER = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Yêu cầu trở thành Default Phone App
+        new AlertDialog.Builder(this)
+                .setTitle("Yêu cầu quyền")
+                .setMessage("Để chặn cuộc gọi, vui lòng đặt ứng dụng này làm mặc định cho cuộc gọi.")
+                .setPositiveButton("Đồng ý", (dialog, which) -> {
+                    TelecomManager telecomManager = (TelecomManager) getSystemService(Context.TELECOM_SERVICE);
+                    if (telecomManager != null && !getPackageName().equals(telecomManager.getDefaultDialerPackage())) {
+                        Intent intent = new Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER);
+                        intent.putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, getPackageName());
+                        startActivityForResult(intent, REQUEST_CODE_SET_DEFAULT_DIALER);
+                    }
+                })
+                .setNegativeButton("Bỏ qua", null)
+                .show();
 
         checkAndRequestWriteSettings(this);
         Intent serviceIntent = new Intent(this, BatteryOptimizerService.class);
@@ -64,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
 
     public void checkAndRequestWriteSettings(Context context) {
         if (!Settings.System.canWrite(context)) {

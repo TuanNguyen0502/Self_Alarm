@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.SMS;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import hcmute.edu.vn.selfalarm.R;
+import hcmute.edu.vn.selfalarm.smsCall.Call.Blacklist.BlacklistService;
+import hcmute.edu.vn.selfalarm.smsCall.ViewPagerAdapter;
 
 public class SmsCallActivity extends AppCompatActivity {
     private static SmsCallActivity instance;

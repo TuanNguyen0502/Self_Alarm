@@ -1,4 +1,4 @@
-package hcmute.edu.vn.selfalarm.smsCall;
+package hcmute.edu.vn.selfalarm.smsCall.SMS;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.edu.vn.selfalarm.R;
+import hcmute.edu.vn.selfalarm.smsCall.NotificationHelper;
 
 public class SmsActivity extends AppCompatActivity implements SMSUpdateListener {
 
