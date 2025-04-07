@@ -1,27 +1,29 @@
 package hcmute.edu.vn.selfalarm.optimizeBattery;
 
+import static android.content.ContentValues.TAG;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
 public class BatteryOptimizerService extends Service {
-    private static final String TAG = "BatteryOptimizerService";
     private BroadcastReceiver batteryReceiver;
     private BroadcastReceiver screenReceiver;
 
+//    Lưu trạng thái pin trước đó, giúp tránh xử lí trùng lặp
     private int lastBatteryLevel = -1;
     private boolean lastChargingState = false;
-    private boolean isChange = false;
 
     @Override
     public void onCreate() {
@@ -31,60 +33,85 @@ public class BatteryOptimizerService extends Service {
         registerScreenReceiver();
     }
 
+//    Nhận sự kiện pin
     private void registerBatteryReceiver(){
+//        Khởi tạo batteryReceiver để lắng nghe sự kiện thay đổi pin
         batteryReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+//                EXTRA_LEVEL: Lấy mức pin hiện tại(0-100)
+//                EXTRA_STATUS: Trạng thái sạc(Đang sạc, đầy, không sạc,...)
+//                isCharging: Kiểm tra trạng thái sạc có đầy hay không
                 int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                 int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 boolean isCharging = status == BatteryManager.BATTERY_STATUS_FULL;
 
+//  Lấy mức pin hiện taại và trạng thái từ Intent
+//                Xử lí nếu mức pin bị thay đổi/ trạng thái sạc bị thay đổ
                 if (level != lastBatteryLevel || isCharging != lastChargingState) {
-                    Log.d(TAG, "Battery level changed: " + level + "%, Charging: " + isCharging);
-                    adjustSettings(level, isCharging);
+                    if(level <= 90){
+                        Intent intent1 = new Intent("show_dialog");
+                        intent1.putExtra("level", level);       // ví dụ: 20
+                        intent1.putExtra("charging", isCharging);      // ví dụ: true hoặc false
+                        sendBroadcast(intent1);
+                    }
 
                     lastBatteryLevel = level;
                     lastChargingState = isCharging;
-                } else {
-                    Log.d(TAG, "Battery state unchanged, skipping adjustSettings()");
                 }
             }
         };
+
+//        Tạo ra một Intent để lắng nghe sự kiện thay đổi pin
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(batteryReceiver, filter);
     }
 
+//    Định nghĩa phương thức riêng để cấu hình và
+//    đăng kí BroadcastReceiver các sự kiện liên quan
+//    đến màn hình
     private void registerScreenReceiver(){
+//        Khởi tạo screenReceiver để xử lí bật/tắt màn hình
         screenReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+//                Khi màn hình tắt -> giảm sử dụng tài nguyên
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                    Log.d(TAG, "Screen turned off");
                     reduceResourceUsage();
                 } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                    Log.d(TAG, "Screen turned on");
+//                    Khi màn hình bật -> khôi phục cài đặt
                     restoreSettings();
                 }
             }
         };
+
+//        Đăng kí các sự kiện ON/OFF màn hình
+//        Tạo một IntentFilter trống để thêm các loại sự kiện muốn lắng nghe
         IntentFilter filter = new IntentFilter();
+//        ACTION_SCREEN_ON: Khi màn hình bật
+//        ACTION_SCREEN_OFF: Khi màn hình tắt
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+//        Nhận các sự kiện theo filter đã tạo
         registerReceiver(screenReceiver, filter);
     }
 
-    private void adjustSettings(int level, boolean isCharging) {
-        if (level <= 20 && !isCharging) {
-            Log.d(TAG, "Low battery - Lowering brightness");
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 50);
+//    Nếu phần trăm pin <= 20% và đang không sạc ->
+//    giảm độ sáng và tắt đồng bộ tự động
+    public void adjustSettings(int level, boolean isCharging) {
+        if (level <= 90 && !isCharging) {
+            int brightness = getScreenBrightness();
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness/2);
             // Disable auto-sync
             toggleAutoSync(false);
-            isCharging = true;
         }
     }
 
+    public int getScreenBrightness() {
+        return Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
+    }
+
     private void reduceResourceUsage() {
-        Log.d(TAG, "Reducing resource usage");
         // Add your resource reduction logic here
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 30);
         // Disable window animations
@@ -94,7 +121,6 @@ public class BatteryOptimizerService extends Service {
     }
 
     private void restoreSettings() {
-        Log.d(TAG, "Restoring original settings");
         // Restore your original settings here
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
 //        Enable auto-sync
@@ -115,6 +141,12 @@ public class BatteryOptimizerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && intent.hasExtra("action") && "adjust_settings".equals(intent.getStringExtra("action"))){
+            int level = intent.getIntExtra("level", -1);
+            boolean isCharging = intent.getBooleanExtra("charging", false);
+            adjustSettings(level, isCharging);
+        }
+
         return START_STICKY;
     }
 
