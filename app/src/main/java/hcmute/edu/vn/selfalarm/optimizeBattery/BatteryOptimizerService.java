@@ -6,6 +6,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -104,6 +105,12 @@ public class BatteryOptimizerService extends Service {
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness/2);
             // Disable auto-sync
             toggleAutoSync(false);
+            if (level <= 10){
+                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
+                    bluetoothAdapter.disable();
+                }
+            }
         }
     }
 

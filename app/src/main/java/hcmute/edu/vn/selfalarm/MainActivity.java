@@ -145,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
         if (level <= 20){
             txtContent.setText("Pin của bạn đã giảm xuống dưới 20%. Bạn có muốn tiết kiệm pin?");
         }
+        if (level <= 10){
+            txtContent.setText("Pin của bạn đã giảm xuống dưới 10%. Bạn có muốn tắt bluetooth?");
+        }
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
 
