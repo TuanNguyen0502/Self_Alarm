@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telecom.TelecomManager;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -108,11 +110,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(showDialogReceiver, new IntentFilter("show_dialog"));
+        IntentFilter filter = new IntentFilter("show_dialog");
+        registerReceiver(showDialogReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
     }
 
     @Override
